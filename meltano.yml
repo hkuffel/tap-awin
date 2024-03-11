@@ -1,0 +1,28 @@
+version: 1
+default_environment: test
+send_anonymous_usage_stats: true
+project_id: 014dfb24-e6d2-4339-bcb8-eb805e3c56e1
+plugins:
+  extractors:
+  - name: tap-awin
+    namespace: tap_awin
+    pip_url: -e .
+    capabilities:
+    - state
+    - catalog
+    - discover
+    - about
+    - stream-maps
+    config:
+      api_token: <API_TOKEN>
+      lookback_days: 7
+      start_date: '2024-01-01T00:00:00Z'
+      request_batch_size_days: 31
+    select:
+    - transactions.*
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
+environments:
+- name: test
